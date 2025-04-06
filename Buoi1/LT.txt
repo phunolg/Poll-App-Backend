@@ -1,0 +1,57 @@
+2. Client - server Architecture
+3. HTTP, HTTPS (HTTPS = HTTP + TLS/SSL)
+4. HTTP request structure
+4.1 HTTP request
+path: địa chỉ request muốn truy cập trong server
+header: cũng chứa dữ liệu để gửi lên server 
+nhưng dữ liệu chính thì ở trong body
+
+cấu trúc:
+Method: Loại hành động (GET, POST, PUT, PATCH, DELETE).
+Headers: Thông tin bổ sung (như loại nội dung, mã hóa, xác thực).
+Body: Dữ liệu gửi lên server (chỉ có trong các phương thức như POST, PUT).
+
+
+// phần header
+POST api/items HTTP/2.2
+Host example.com
+Content_Type: application/json
+Authorization: Bearer <token> //xác thực
+
+// phần body
+{
+    "name": "new items"
+    "decrition": "fjlfuf"
+}
+
+=> GET: không có phần body, chỉ có ở url 
+post: gửi dữ liệu lên
+put: thay đổi hầu hết các trường
+patch: thay đổi 1 trường
+post, put, patch có thể thay thế cho nhau
+delete: xóa dữ liệu
+
+4.2 HTTP response
+gồm: 
+-Status Code: Trạng thái của yêu cầu (200, 404, 500, v.v.).
+-Headers: Thông tin bổ sung (như loại nội dung, độ dài dữ liệu).
+-Body: Dữ liệu trả về (nếu có).
+
+5. node.js
+- môi trường chạy js 
+
+6. express.js
+- là 1 framework để xây dựng web cho node.js
+
+7. npm (công cụ quản lý package)
+API (Application Programming Interface) là một giao diện lập trình ứng dụng, cho phép các ứng dụng hoặc hệ thống khác nhau giao tiếp và tương tác với nhau. 
+8. api
+
+
+Mối quan hệ giữa HTTP Request và HTTP Response
+- Được sử dụng để giao tiếp giữa client (ví dụ: trình duyệt, ứng dụng frontend) và server (backend).
+- HTTP Request: Là yêu cầu mà client gửi đến server để thực hiện một hành động, như lấy dữ liệu, gửi dữ liệu, cập nhật hoặc xóa dữ liệu.
+- HTTP Response: Là phản hồi mà server gửi lại cho client sau khi xử lý yêu cầu, bao gồm thông tin về trạng thái và dữ liệu trả về (nếu có).
+
+
+btvn: tìm hiểu các status code thường gặp 

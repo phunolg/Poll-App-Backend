@@ -1,0 +1,45 @@
+1 SSR vs CSR 
+1.1. SSR
+Client -> Request -> Server -> Render HTML -> Response -> Client hiển thị nội dung.
+- tgian tải trang nhanh hơn
+- thân thiện với SEO-tối ưu hóa công cụ tìm kiếm, gg tìm kiếm trong html dễ hơn
+- tgian tải trang lâu hơn, mỗi lần đều phải gửi yêu cầu lên server, dễ gây quá tải server
+1.2. CSR
+Client -> Request -> Server -> HTML rỗng + JS -> Client tải JS -> Gọi API -> Render nội dung.
+- không thân thiện với SEO: gg khó tìm thấy do html rỗng
+- lần đầu phải tải hết lại html nên lâu, lần sau sẽ không cần tải lại nữa, không cần request lên server nữa
+
+2. REST, RESTful API
+2.1. REST
+- là một kiến trúc phần mềm dựa trên giao thức HTTP, được sử dụng trong việc thiết kế các API cho các ứng dụng web.
+- chức năng: quy định url, 
+2.2. RESTful API
+- API được thiết kế theo các nguyên tắc của REST, giúp cho việc giao tiếp giữa client và server trở nên dễ dàng và hiệu quả hơn.
+
+3. IP, dns, localhost, Port 
+3.1. IP
+- IP là địa chỉ định danh của thiết bị trong mạng, giúp các thiết bị giao tiếp và truyền dữ liệu với nhau.
+- Network ID: Xác định mạng mà thiết bị thuộc về.
+- Host ID: Xác định thiết bị cụ thể trong mạng.
+
+3.2. DNS(Domain Name System)
+- phân giải địa chỉ ip thành tên miền dễ nhớ
+
+3.3. Localhost
+- là địa chỉ ip của máy tính mình, dùng để truy cập vào máy tính mình
+3.5 Routing: 
+3.4. Port
+- là cổng kết nối giữa máy tính và máy chủ, mỗi port sẽ có 1 dịch vụ cụ thể
+- port 80: http
+- port 443: https
+- trong 1 thời điểm, 1 port chỉ có thể kết nối với 1 dịch vụ, ứng dụng
+
+4. postman
+- là 1 công cụ giúp test api, gửi request, nhận response
+- browser chỉ dùng được get, postman dùng được cả get, post, put, delete
+
+
+- khi tải code lên git thì không post node_modules lên, chỉ cần post file package.json và package-lock.json, sau đó chạy npm install để cài đặt lại node_modules
+- Run the app with the following command:
+        node app.js
+- Then, load http://localhost:3000/ in a browser to see the output.

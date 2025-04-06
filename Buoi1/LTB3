@@ -1,0 +1,144 @@
+1. Nodemon:
+Nodemon là một công cụ giúp phát triển ứng dụng Node.js bằng cách tự động khởi động lại ứng dụng khi phát hiện thay đổi trong mã nguồn. Điều này giúp tăng hiệu suất trong quá trình phát triển bằng cách loại bỏ nhu cầu khởi động lại thủ công sau mỗi lần chỉnh sửa.
+
+2. Babel:
+Babel là một trình biên dịch JavaScript được sử dụng để chuyển đổi mã ECMAScript 2015+ thành phiên bản JavaScript tương thích ngược, giúp mã của bạn chạy được trên các môi trường hoặc trình duyệt cũ hơn.
+
+3. ESLint + Airbnb + Prettier:
+- ESLint: ESLint là một công cụ phân tích tĩnh cho JavaScript, giúp xác định và báo cáo các mẫu mã không tuân thủ quy tắc, nhằm làm cho mã nhất quán và tránh lỗi.​
+
+- Airbnb Style Guide: Đây là một bộ quy tắc mã hóa phổ biến được cộng đồng sử dụng rộng rãi, cung cấp các hướng dẫn về cách viết mã JavaScript nhất quán và rõ ràng.​
+
+- Prettier: Prettier là một công cụ định dạng mã, tự động định dạng mã nguồn dựa trên các quy tắc đã thiết lập, giúp mã trở nên đẹp hơn, sạch sẽ và nhất quán hơn mà không ảnh hưởng đến logic.​
+
+3.1: Cấu hình Prettier
+Để cấu hình Prettier, bạn cần tạo một tệp .prettierrc trong thư mục gốc của dự án với nội dung sau:​
+{
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
+}
+Cấu hình này thiết lập các quy tắc như sử dụng dấu phẩy ở cuối (trailing commas) theo chuẩn ES5, độ rộng tab là 4, không sử dụng dấu chấm phẩy ở cuối câu lệnh, và sử dụng dấu nháy đơn thay vì dấu nháy kép cho chuỗi.​
+
+3.2: Cấu hình ESLint
+Tạo một tệp .eslintrc.json trong thư mục gốc của dự án với nội dung sau:​
+{
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
+Cấu hình này mở rộng từ bộ quy tắc của Airbnb và tích hợp Prettier, đồng thời thiết lập quy tắc để báo lỗi khi mã không tuân thủ các quy tắc định dạng của Prettier.
+
+
+4. query params:
+
+- Query Params (Query Parameters) là các tham số được gửi kèm trong URL của một yêu cầu HTTP để truyền dữ liệu từ client đến server. Chúng thường được sử dụng để lọc, tìm kiếm, hoặc truyền dữ liệu không nhạy cảm.
+- là các cặp key, value đc cách nhau bằng dấu bằng, các cặp đó được ngăn cách nhau bằng dấu &
+
+- Cách sử dụng Query Params:
+Query Params được thêm vào URL sau dấu ?.
+Các tham số được viết dưới dạng key=value và ngăn cách nhau bằng dấu & nếu có nhiều tham số.
+
+- Ví dụ:
+http://example.com/api/users?name=John&age=30
+; Trong ví dụ này, name và age là các tham số truy vấn, với giá trị tương ứng là John và 30.
+
+- Server nhận Query Params:
+Trong server (ví dụ: sử dụng Express.js), bạn có thể lấy Query Params từ yêu cầu:
+
+app.get('/api/users', (req, res) => {
+    const name = req.query.name; // Lấy giá trị của 'name'
+    const age = req.query.age;   // Lấy giá trị của 'age'
+    res.send(`Name: ${name}, Age: ${age}`);
+});
+
+Khi nào sử dụng Query Params?
+- Tìm kiếm hoặc lọc dữ liệu: /api/products?category=electronics&price=100-500
+- Phân trang: /api/users?page=2&limit=10
+- Sắp xếp dữ liệu: /api/items?sort=asc
+
+5. path params:
+Path Params (Path Parameters) là các tham số được truyền trực tiếp trong đường dẫn (URL) của một yêu cầu HTTP. Chúng thường được sử dụng để xác định tài nguyên cụ thể trên server, chẳng hạn như một người dùng, sản phẩm, hoặc bài viết.
+
+điểm khác nhau giữa Query Params và Path Params:
+1: sau dấu ? là query params, sau dấu / là path params
+2: tách nhiều giá trị bằng dấu & là query params, tách nhiều giá trị bằng dấu / là path params
+3: Ví dụ	/api/users?name=John	/api/users/123
+4: Query Params thường được sử dụng để tìm kiếm, lọc, hoặc phân trang dữ liệu. Path Params thường được sử dụng để xác định tài nguyên cụ thể.
+ví dụ: /api/users/123 là để lấy thông tin của người dùng có ID là 123, trong khi /api/users?name=John là để tìm kiếm người dùng có tên là John.
+5: query params không được định nghĩa trong router, path params được định nghĩa trong router: ví dụ: app.get('/users/:id', (req, res) => { ... })
+
+bt: tạo 1 mảng user và lấy ra tất cả các user trong mảng
+lấy ra 1 user có id nào đó trong mảng
+thực hiện tạo api: crud
+create: thêm 1 user vào mảng
+read: lấy ra tất cả các user trong mảng, lấy ra 1 user có id nào đó trong mảng
+update: cập nhật thông tin của 1 user trong mảng
+delete: xóa 1 user trong mảng
+
+
+// app.get('/hello/:a/:b', (req, res) => {
+//     // vd: app.get('/abc', (req, res) => {   thì trên thanh tìm kiếm sẽ nhâp http://localhost:3000/abc
+//     // console.log(req.query.c) // {name: 'abc', age: '123'}
+//     // res.send('Hello World!')
+//     console.log('param: ', req.params.a) // {id: '123'}
+//     res.status(201).send('Hello World!')
+// })
+
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// }
+
+
+// thuật toán khi chưa thao tác với file
+//   const express = require('express')
+
+//   const app = express()
+//   const port = 3000
+//   app.use(express.json()) 
+
+//   const users = [
+//       { id: 1, name: 'John' },
+//       { id: 2, name: 'Jane' },
+//       { id: 3, name: 'Jack' },
+//   ]
+//   app.get('/users', (req, res) => {
+//     console.log(req.body); // Log the request body (optional)
+//     res.json(users); // Return the entire users array
+//   });
+
+
+
+//   app.post('/users', (req, res) => {
+//     // let newUser
+//     // newUser.id = users.length + 1
+//     // newUser.name = req.body.name
+//     // users.push(newUser)
+//     // res.json(users)
+//     const newUser = req.body
+//     users.push(newUser)
+//     res.json(users)
+//   })
+
+
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// })
+
+// // update user
+// app.put('/users/:id', (req, res) => {
+//     const id = Number(req.params.id)
+//     const user = users.find((u) => u.id === id)
+//     user.name = req.body.name
+//     res.json(user)
+// })
+
+// app.delete('/users/:id', (req, res) => {
+//     const id = Number(req.params.id)
+//     const user = users.find((u) => u.id === id)
+//     users.splice(users.indexOf(user), 1)
+//     res.json(users)
+// })

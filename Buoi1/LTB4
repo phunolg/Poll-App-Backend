@@ -1,0 +1,119 @@
+sự khác nhau giữa require vs import
+
+
+Định nghĩa: Là cú pháp để nạp module trong CommonJS (hệ thống module mặc định của Node.js).
+Cách sử dụng: const module = require('module-name');
+
+Đặc điểm:
+Đồng bộ (synchronous): Module được nạp ngay tại thời điểm gọi require.
+Không cần bước biên dịch, hoạt động trực tiếp trong môi trường Node.js.
+Không hỗ trợ tree-shaking (loại bỏ mã không sử dụng).
+
+ví dụ:
+const fs = require('fs'); // Nạp module 'fs' trong Node.js
+const data = fs.readFileSync('file.txt', 'utf8');
+console.log(data);
+
+Khi nào sử dụng?
+Sử dụng require:
+Khi làm việc với các dự án Node.js cũ hoặc sử dụng CommonJS.
+Khi không cần tree-shaking hoặc không cần hỗ trợ ES Modules.
+
+Sử dụng import:
+Khi làm việc với các dự án hiện đại sử dụng ES6+.
+Khi cần tree-shaking để tối ưu hóa mã nguồn.
+Khi sử dụng các công cụ như Babel hoặc Webpack để biên dịch mã.
+
+
+1. điểm khác nhau giữa require() và import
+
+- require thuộc module commonJs, import ES6 modules
+- không thể dùng trong ES module, trong ES module có thể dùng import để thay thế
+- Sử dụng module.exports hoặc exports để xuất dữ liệu., Sử dụng export hoặc export - default để xuất dữ liệu.
+- Module được nạo chồng đồng bọ tại thời điểm gọi, module đc nạp bất đồng bộ
++ Đồng bộ có nghĩa là các tác vụ được thực hiện tuần tự, từng bước một. Một tác vụ phải hoàn thành trước khi tác vụ tiếp theo được thực hiện.
++ Bất đồng bộ có nghĩa là các tác vụ có thể được thực hiện song song hoặc không cần chờ tác vụ trước đó hoàn thành.
+- const module = require('module'), import module from "module"
+- được hỗ trợ mặc định, cần có type: "module" trong file {} package.json để sử dụng
+- .js, .jsor .mjs
+- import toàn bộ module, chỉ import khi cần dùng
+
+2. Middleware
+- Middleware là các hàm trung gian trong ứng dụng web hoặc API, được sử dụng để xử lý các yêu cầu (request) và phản hồi (response) trước khi chúng đến các route handler hoặc được gửi lại cho client. Middleware thường được sử dụng trong các framework như Express.js.
+- Chức năng của Middleware:
++ Xử lý yêu cầu (Request) và phản hồi (Response):
+Middleware có thể can thiệp vào yêu cầu trước khi nó đến route handler hoặc xử lý phản hồi trước khi gửi lại cho client.
+kết thúc quá trình res, req
+có thể thsy đổi res, req
+
++ Thực hiện các tác vụ chung:
+Xác thực (Authentication).
+Ghi log (Logging).
+Phân tích dữ liệu (Parsing data).
+Xử lý lỗi (Error handling).
+
++ Chuỗi Middleware:
+Middleware được thực thi theo thứ tự chúng được khai báo trong mã nguồn.
+
+Cách hoạt động của Middleware:
+Middleware nhận 3 tham số chính:
+req: chứa thông tin của request về client
+res: dùng để gửi phản hồi về client 
+next: Hàm được gọi để chuyển tiếp yêu cầu đến middleware tiếp theo.
+
+các loại middleware
+Application-level Middleware:
+Được áp dụng trên toàn bộ ứng dụng.
+
+Router-level Middleware:
+Được áp dụng cho các route cụ thể.
+
+Built-in Middleware:
+Middleware có sẵn trong Express.js.
+Ví dụ:
+express.json(): Parse JSON.
+express.static(): Phục vụ file tĩnh.
+
+Third-party Middleware:
+Middleware từ các thư viện bên ngoài.
+Ví dụ:
+morgan: Ghi log.
+cors: Xử lý CORS (Cross-Origin Resource Sharing).
+
+
+
+<!-- import express from 'express'
+const app = express()
+const port = 3000
+app.use(express.json())
+
+app.post(
+    '/hello',
+    (req, res, next) => {
+        if(req.query.a === '1'){
+            return next()
+            const user = req.body;
+            user.name = '/thanh phuong'
+            req.user = user
+            return next()
+
+        }
+        res.send('loi!!!')
+        return;
+    },
+    ((req, res) => {
+        res.send(req.user);
+}),
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`)
+})) -->
+
+gitflow, workflow
+khi dev code thì push vào feature( phát triển các chức năng)
+leader sẽ review lại code ở develop
+hotflix sửa lỗi khẩn cấp
+master: nhánh chính, nơi người dùng chính sử dụng
+
+về nhà: tạo nhánh main, dev và file code của mỗi bài học
+khi nào code hoàn chỉnh thì mới push lên dev
