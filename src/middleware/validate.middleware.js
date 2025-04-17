@@ -1,9 +1,9 @@
 import Joi from "joi";
 class ValidateMiddleware{
-    async validateId(request,response, next){
+    async validateId(req,res, next){
         try{
             const schema = Joi.object({
-                if: Joi.number().required()
+                id: Joi.number().required()
             })
             
             await schema.validateAsync(req.params, { abortEarly: false});

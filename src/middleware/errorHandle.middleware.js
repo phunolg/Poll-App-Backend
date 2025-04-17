@@ -11,8 +11,11 @@ import { Router } from "express"
 
 const errorHandle = (err, req, res, next) => {
     console.error(err.stack);
-    res.statusCode = 500;
-}
+    res.status(500).json({
+        message: err.message || "Internal server error",
+        stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
+    }
 // const resError = {
 //     // statusCode: err.statusCode || 500,
 //     message: err.message || "Internal server error",

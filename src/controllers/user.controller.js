@@ -1,10 +1,9 @@
 import UserService from '../services/user.service.js';
-import { body, validationResult } from 'express-validator';
-
 
 class UserController {
     // Create a user
     async createUser(req, res, next) {
+        // Validate dữ liệu đầu vào
         await body('email').isEmail().withMessage('Invalid email').run(req);
         await body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters').run(req);
     
@@ -26,26 +25,12 @@ class UserController {
     }
 
     // Get all users
-    async getUser(req, res, next) {
-        // Validate ID
-        await param('id').isMongoId().withMessage('Invalid user ID').run(req);
-    
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ success: false, errors: errors.array() });
-        }
+    async getAllUsers(req, res, next) {
         try {
-            const id = req.params.id;
-            const user = await UserService.getUser(id);
-            if (!user) {
-                return res.status(404).json({
-                    success: false,
-                    message: "User not found"
-                });
-            }
+            const users = await UserService.getAllUsers();
             return res.status(200).json({
                 success: true,
-                data: user
+                data: users
             });
         } catch (err) {
             next(err);
@@ -54,6 +39,14 @@ class UserController {
 
     // Get a user by ID
     async getUser(req, res, next) {
+        // Validate ID
+        await param('id').isMongoId().withMessage('Invalid user ID').run(req);
+    
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ success: false, errors: errors.array() });
+        }
+    
         try {
             const id = req.params.id;
             const user = await UserService.getUser(id);
