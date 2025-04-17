@@ -7,9 +7,9 @@
 - một vài loại colection đặc biệt: 
 + time-to-live: dữ liệu tự dộng xóa sau một khoảng thời gian nhất định
 + capped collection: giới hạn kích thước của collection, dữ liệu cũ sẽ bị xóa khi đạt đến giới hạn kích thước
-- file storage: lưu trữ file lớn, hình ảnh, video, âm thanh
+- file storage: lưu trữ file lớn, hình ảnh, video, âm thanh, tài liệu, ...
 
-Dôument in MongoDB:
+Document in MongoDB:
 - là trái tim của mongoDB, là đơn vị lưu trữ dữ liệu chính trong MongoDB
 - được sử dụng để lưu trữ dữ liệu dưới dạng JSON-like format (BSON)
 - document là 1 cặp key-value, key là tên trường (field) và value là giá trị của trường đó

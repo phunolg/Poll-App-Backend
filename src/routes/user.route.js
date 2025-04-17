@@ -1,14 +1,16 @@
 import { Router } from "express";
 import UserController from "../controllers/user.controller.js";
+import ValidateMiddleware from "../middleware/validate.middleware.js";
 
 const route = Router();
+
 route.route('/')
-    .post(UserController.createUser)
+    .post(ValidateMiddleware.validateCreateUser, UserController.createUser)
     .get(UserController.getAllUsers);
 
 route.route('/:id')
-    .get(UserController.getUser)
-    .put(UserController.updateUser)
-    .delete(UserController.deleteUser);
+    .get(ValidateMiddleware.validateId, UserController.getUser)
+    .put(ValidateMiddleware.validateId, UserController.updateUser)
+    .delete(ValidateMiddleware.validateId, UserController.deleteUser);
 
 export default route;
