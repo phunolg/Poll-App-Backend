@@ -1,4 +1,7 @@
 import UserService from '../services/user.service.js';
+import { body, param, validationResult } from 'express-validator';
+import { getDB } from '../config/db.config.js';
+import { ObjectId } from 'mongodb';
 
 class UserController {
     // Create a user
@@ -33,7 +36,7 @@ class UserController {
             });
         } catch (err) {
             next(err);
-            
+
         }
     }
 

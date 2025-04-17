@@ -1,5 +1,6 @@
 import { getDB } from "../config/db.config.js";
 import { ObjectId } from "mongodb";
+import UserModel from "../models/user.model.js";
 
 class UserService {
     async createUser(email, password) {

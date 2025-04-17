@@ -18,9 +18,9 @@ const startApp = async () => {
     app.use(express.json())
     app.use("/abc",express.static(path.join(__dirname, 'public')));
     app.use("/", router)
+
     templateEngineConfig(app)
     app.use(errorHandler)
-
 
     app.listen(port, () => {
         console.log(`Example app listening on port `);
