@@ -3,7 +3,6 @@ import UserService from '../services/user.service.js';
 class UserController {
     // Create a user
     async createUser(req, res, next) {
-        // Validate dữ liệu đầu vào
         await body('email').isEmail().withMessage('Invalid email').run(req);
         await body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters').run(req);
     
@@ -34,12 +33,12 @@ class UserController {
             });
         } catch (err) {
             next(err);
+            
         }
     }
 
     // Get a user by ID
     async getUser(req, res, next) {
-        // Validate ID
         await param('id').isMongoId().withMessage('Invalid user ID').run(req);
     
         const errors = validationResult(req);
@@ -67,10 +66,8 @@ class UserController {
 
     // Update a user
     async updateUser(req, res, next) {
-        // Validate ID
         await param('id').isMongoId().withMessage('Invalid user ID').run(req);
     
-        // Validate body
         await body('email').optional().isEmail().withMessage('Invalid email').run(req);
         await body('password').optional().isLength({ min: 6 }).withMessage('Password must be at least 6 characters').run(req);
     
@@ -100,7 +97,6 @@ class UserController {
 
     // Delete a user
     async deleteUser(req, res, next) {
-        // Validate ID
         await param('id').isMongoId().withMessage('Invalid user ID').run(req);
     
         const errors = validationResult(req);

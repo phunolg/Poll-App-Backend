@@ -5,8 +5,8 @@ import ValidateMiddleware from "../middleware/validate.middleware.js";
 const route = Router();
 
 route.route('/')
-    .post(ValidateMiddleware.validateCreateUser, UserController.createUser)
-    .get(UserController.getAllUsers);
+    .get(UserController.getAllUsers)
+    .post(ValidateMiddleware.validateCreateUser, UserController.createUser);
 
 route.route('/:id')
     .get(ValidateMiddleware.validateId, UserController.getUser)

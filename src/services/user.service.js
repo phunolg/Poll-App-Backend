@@ -2,56 +2,43 @@ import { getDB } from "../config/db.config.js";
 import { ObjectId } from "mongodb";
 
 class UserService {
-    // Create a user
     async createUser(email, password) {
         try {
-            const user = await getDB().collection("users").insertOne({ email, password });
-            return user;
+            return await UserModel.createUser(email, password);
         } catch (err) {
-            throw err;
+            throw new Error("Failed to create user: " + err.message);
         }
     }
 
-    // Get all users
     async getAllUsers() {
         try {
-            const users = await getDB().collection("users").find({}).toArray();
-            return users;
+            return await UserModel.getAllUsers();
         } catch (err) {
-            throw err;
+            throw new Error("Failed to fetch users: " + err.message);
         }
     }
 
-    // Get a user by ID
     async getUser(id) {
         try {
-            const user = await getDB().collection("users").findOne({ _id: new ObjectId(id) });
-            return user;
+            return await UserModel.getUserById(id);
         } catch (err) {
-            throw err;
+            throw new Error("Failed to fetch user: " + err.message);
         }
     }
 
-    // Update a user by ID
     async updateUser(id, updateData) {
         try {
-            const result = await getDB().collection("users").updateOne(
-                { _id: new ObjectId(id) },
-                { $set: updateData }
-            );
-            return result;
+            return await UserModel.updateUserById(id, updateData);
         } catch (err) {
-            throw err;
+            throw new Error("Failed to update user: " + err.message);
         }
     }
 
-    // Delete a user by ID
     async deleteUser(id) {
         try {
-            const result = await getDB().collection("users").deleteOne({ _id: new ObjectId(id) });
-            return result;
+            return await UserModel.deleteUserById(id);
         } catch (err) {
-            throw err;
+            throw new Error("Failed to delete user: " + err.message);
         }
     }
 }
