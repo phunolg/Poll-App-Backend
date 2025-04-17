@@ -1,55 +1,59 @@
-const User = require('../models/user.model');
+import { getDB } from "../config/db.config.js";
+import { ObjectId } from "mongodb";
 
-const userService = {
-    // Create a new user
-    createUser: async (userData) => {
+class UserService {
+    // Create a user
+    async createUser(email, password) {
         try {
-            const user = new User(userData);
-            return await user.save();
-        } catch (error) {
-            throw new Error('Error creating user: ' + error.message);
-        }
-    },
-
-    // Get all users
-    getAllUsers: async () => {
-        try {
-            return await User.find();
-        } catch (error) {
-            throw new Error('Error fetching users: ' + error.message);
-        }
-    },
-
-    // Get user by ID
-    getUserById: async (userId) => {
-        try {
-            return await User.findById(userId);
-        } catch (error) {
-            throw new Error('Error fetching user: ' + error.message);
-        }
-    },
-
-    // Update user
-    updateUser: async (userId, updateData) => {
-        try {
-            return await User.findByIdAndUpdate(
-                userId,
-                updateData,
-                { new: true, runValidators: true }
-            );
-        } catch (error) {
-            throw new Error('Error updating user: ' + error.message);
-        }
-    },
-
-    // Delete user
-    deleteUser: async (userId) => {
-        try {
-            return await User.findByIdAndDelete(userId);
-        } catch (error) {
-            throw new Error('Error deleting user: ' + error.message);
+            const user = await getDB().collection("users").insertOne({ email, password });
+            return user;
+        } catch (err) {
+            throw err;
         }
     }
-};
 
-module.exports = userService; 
+    // Get all users
+    async getAllUsers() {
+        try {
+            const users = await getDB().collection("users").find({}).toArray();
+            return users;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    // Get a user by ID
+    async getUser(id) {
+        try {
+            const user = await getDB().collection("users").findOne({ _id: new ObjectId(id) });
+            return user;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    // Update a user by ID
+    async updateUser(id, updateData) {
+        try {
+            const result = await getDB().collection("users").updateOne(
+                { _id: new ObjectId(id) },
+                { $set: updateData }
+            );
+            return result;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    // Delete a user by ID
+    async deleteUser(id) {
+        try {
+            const result = await getDB().collection("users").deleteOne({ _id: new ObjectId(id) });
+            return result;
+        } catch (err) {
+            throw err;
+        }
+    }
+}
+
+export default new UserService();
