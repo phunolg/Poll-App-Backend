@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { ObjectId } from "mongodb";
+
 import UserController from "../controllers/user.controller.js";
 import ValidateMiddleware from "../middleware/validate.middleware.js";
 

@@ -1,0 +1,57 @@
+Authentication: quá trình xác minh danh tính của một người dùng hoặc hệ thống để đảm bảo rằng họ là ai mà họ tuyên bố.
+
+- Authentication vs Authorization
+Authentication: Xác minh danh tính của người dùng (Bạn là ai?).
+Authorization: Kiểm tra quyền của người dùng để truy cập tài nguyên (Bạn có quyền làm gì?).
+
+- Ví dụ:
+Authentication: Đăng nhập vào hệ thống bằng email và mật khẩu.
+Authorization: Chỉ người dùng có vai trò "admin" mới được phép xóa dữ liệu.
+
+
+
+token-base Authentication
+- Token-based Authentication là một phương pháp xác thực trong đó người dùng đăng nhập vào hệ thống 
+và nhận được một token (mã thông báo). Token này được sử dụng để xác thực danh tính của người dùng trong 
+các yêu cầu tiếp theo mà không cần gửi lại thông tin đăng nhập (như username và password).
+
+- Cách hoạt động của Token-based Authentication
+1. Người dùng đăng nhập:
+Người dùng gửi thông tin đăng nhập (username và password) đến server.
+
+2. Server xác thực thông tin:
+Server kiểm tra thông tin đăng nhập. Nếu hợp lệ, server tạo một token (thường là JWT - JSON Web Token) và gửi lại cho người dùng.
+
+3. Người dùng gửi token trong các yêu cầu tiếp theo:
+Token được gửi kèm trong header của các yêu cầu HTTP (thường là Authorization: Bearer <token>).
+
+4. Server xác thực token:
+Server kiểm tra token trong mỗi yêu cầu. Nếu token hợp lệ, server cho phép truy cập tài nguyên.
+
+JWT (JSON Web Token)
+- JWT là một tiêu chuẩn mở (RFC 7519) cho phép truyền tải thông tin giữa các bên dưới dạng đối tượng JSON.
+- 3 phần chính của JWT:
+1. Header: Chứa thông tin về loại token và thuật toán mã hóa.
+2. Payload: Chứa thông tin (claims) mà bạn muốn truyền tải. Có thể chứa thông tin người dùng, thời gian hết hạn, v.v.
+    các loai claim:
+        - Registered claims: Là các claim đã được định nghĩa trước như "iss" (issuer), "exp" (expiration time), "sub" (subject), v.v. => nên dùng,...
+        - Public claims: Là các claim do người dùng tự định nghĩa, có thể được sử dụng để truyền tải thông tin tùy chỉnh.
+        - Private claims: Là các claim do người dùng tự định nghĩa, không được định nghĩa trong tiêu chuẩn JWT. Chúng được sử dụng để truyền tải thông tin giữa các bên mà không cần phải công khai.
+3. Signature: Được tạo bằng cách mã hóa header và payload và một secret key. 
+Nó giúp xác thực tính toàn vẹn của token và đảm bảo rằng token không bị thay đổi.
+
+Authorization
+- Authorization là quá trình xác định quyền truy cập của người dùng vào tài nguyên hoặc hành động trong hệ thống.
+
+Registration & Login flow
+- Đăng ký (Registration flow): Người dùng cung cấp thông tin cá nhân (username, password, email, v.v.) để tạo tài khoản mới.
+- Đăng nhập (Login flow): Người dùng cung cấp thông tin đăng nhập (username và password) để xác thực danh tính và nhận token.
+
+Middleware xác thực bằng JWT
+- Middleware là một phần mềm trung gian nằm giữa ứng dụng và server, giúp xử lý các yêu cầu và phản hồi.
+- Middleware xác thực bằng JWT sẽ kiểm tra token trong mỗi yêu cầu đến server. Nếu token hợp lệ, middleware sẽ cho phép truy cập vào tài nguyên. 
+Nếu không hợp lệ, middleware sẽ từ chối yêu cầu và trả về lỗi 401 Unauthorized.
+
+Verify Middleware
+- Verify Middleware là một phần của middleware xác thực, có nhiệm vụ kiểm tra tính hợp lệ của token.
+- Nếu token hợp lệ, middleware sẽ giải mã token và lấy thông tin người dùng từ payload.

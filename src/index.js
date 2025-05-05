@@ -8,6 +8,7 @@ const __dirname = dirname(__filename);
 import router from "./routes/app.route.js"
 import errorHandler from "./middleware/errorHandle.middleware.js"
 import templateEngineConfig from "./config/templateEngine.config.js"
+import hashProvider from "./providers/hash.provides.js";
 import 'dotenv/config'
 import { connectDB } from './config/db.config.js';
 
@@ -21,6 +22,8 @@ const startApp = async () => {
 
     templateEngineConfig(app)
     app.use(errorHandler)
+
+    // console.log('HashProvider', hashProvider.generateHash('123456'));
 
     app.listen(port, () => {
         console.log(`Example app listening on port `);

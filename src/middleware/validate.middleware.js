@@ -1,4 +1,5 @@
 import Joi from "joi";
+import UserModel from "../models/user.model.js";
 
 class ValidateMiddleware {
     async validateId(req, res, next) {
@@ -30,13 +31,27 @@ class ValidateMiddleware {
                 email: Joi.string().email().required(),
                 password: Joi.string().min(6).required()
             });
+
+            // Validate body trước
             await createUserSchema.validateAsync(req.body, { abortEarly: false });
+
+            // Kiểm tra email trùng lặp
+            const { email } = req.body;
+            const existingUser = await UserModel.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email already exists",
+                    errors: ["Email already exists"]
+                });
+            }
+
             next();
         } catch (err) {
             res.status(400).json({
                 success: false,
                 message: "Invalid request body",
-                errors: err.details.map(detail => detail.message)
+                errors: err.details ? err.details.map(detail => detail.message) : [err.message]
             });
         }
     }

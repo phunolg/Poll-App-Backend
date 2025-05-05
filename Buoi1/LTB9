@@ -1,0 +1,42 @@
+H
+ashing
+- là quá trình chuyển đổi dữ liệu đầu vào thành một chuỗi ký tự cố định có độ dài nhất định, thường được sử dụng để bảo mật thông tin nhạy cảm như mật khẩu.
+- không thể đảo ngược lại dữ liệu ban đầu từ giá trị băm.
+- plain text -> hash text -> 1 chiều
+- độ dài của giá trị băm là cố định, bất kể kích thước của dữ liệu đầu vào.
+
+
+- encrypt là quá trình mã hóa dữ liệu để bảo vệ thông tin nhạy cảm, cho phép giải mã lại dữ liệu ban đầu.
+- plain text -(key)> encrypted text -(key)> plain text -> 2 chiều (có thể giải mã về dữ liệu ban đầu)
+
+*note: plain text là dữ liệu gốc, encrypt text là dữ liệu đã được mã hóa.
+
+
+Cracked Hash
+- Định nghĩa: Là kết quả của quá trình tìm ra giá trị gốc (plain text) tương ứng với một giá trị băm (hash).
+  Cách thực hiện: Có thể sử dụng nhiều phương pháp khác nhau để tìm ra giá trị gốc, bao gồm:
+  - Brute force: Thử tất cả các khả năng.
+  - Rainbow table: Sử dụng bảng tra cứu các giá trị băm đã được tính toán trước.
+  - Dictionary attack: Sử dụng danh sách các từ phổ biến (như mật khẩu thông dụng) để thử.
+
+Adding salt
+- Định nghĩa: Là quá trình thêm một chuỗi ngẫu nhiên (salt) vào dữ liệu đầu vào trước khi băm để tạo ra giá trị băm.
+- cách thêm salt: thêm vào trước hoặc sau dữ liệu đầu vào.
+  => Để tăng độ bảo mật của giá trị băm, làm cho việc tìm ra giá trị gốc trở nên khó khăn hơn.
+
+quá trình đăng ký và đăng nhập với salt
+register: email, password, salt => hash string1
+DB lưu: email, hash string, salt
+- Khi người dùng đăng nhập, hệ thống sẽ lấy salt từ DB và thêm vào password trước khi băm để so sánh với giá trị băm đã lưu trong DB.=> hash string2
+- Hệ thống sẽ so sánh hash string1 và hash string2, nếu giống nhau thì cho phép đăng nhập.
+
+bcrypt npm package
+- bcrypt là một thư viện mã hóa mật khẩu mạnh mẽ và phổ biến trong Node.js.1
+- tự động thêm salt vào mật khẩu trước khi băm.
+- thông thường 1 chuỗi băm sẽ có độ dài 60 ký tự: $[algorithm]$[cost]$[22 characters salt]$[31 characters hash]
+- Stretching: Là quá trình lặp lại việc băm nhiều lần để tăng độ khó trong việc tìm ra giá trị gốc.
+  - Cost factor: Là số lần lặp lại quá trình băm, càng cao thì càng tốn thời gian và tài nguyên để băm mật khẩu.
+
+- access control: là quá trình xác định quyền truy cập của người dùng vào các tài nguyên trong hệ thống.
+- role-based access control: là phương pháp quản lý quyền truy cập dựa trên vai trò của người dùng trong hệ thống.
+- role assignment: là quá trình gán quyền truy cập cho người dùng dựa trên vai trò của họ.
