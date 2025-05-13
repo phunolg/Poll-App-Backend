@@ -26,11 +26,10 @@ class UserModel {
         return await db.collection("users").findOne(condition);
     }
 
-    // Update a user by ID
-    async updateUserById(id, updateData) {
+    async updateUserByEmail(email, updateData) {
         const db = getDB();
         return await db.collection("users").updateOne(
-            { _id: new ObjectId(id) },
+            { email: email }, // Tìm kiếm bằng email
             { $set: updateData }
         );
     }
@@ -61,6 +60,39 @@ class UserModel {
     async getUserByEmail(email) {
         const db = getDB();
         return await db.collection('users').findOne({ email });
+    }
+
+    async checkResetPasswordToken(email, resetPasswordToken) {
+        try {
+            const result = await getDB().collection('users').findOne({
+                email: email,
+                resetPasswordToken: resetPasswordToken, // Kiểm tra token
+                resetPasswordExpires: { $gt: new Date() }, // Kiểm tra thời gian hết hạn
+            });
+            console.log('result', result);
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+    async resetPassword(newPassword, email) {
+        try {
+            const result = await getDB().collection('users').updateOne(
+                { email: email },
+                {
+                    $set: {
+                        password: newPassword,
+                        resetPasswordToken: null,
+                        resetPasswordExpiration: null,
+                        lastResetPasswordDate: new Date(),
+                    },
+                }
+            );
+            return result.matchedCount > 0;
+
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

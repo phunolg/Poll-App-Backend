@@ -6,7 +6,8 @@ import { getDB } from '../../config/db.config.js';
 import bcrypt from 'bcrypt';
 import { get } from 'http';
 import { ObjectId } from 'mongodb';
-
+import emailProvider from '../../providers/email.provides.js';
+import hashProvider from '../../providers/hash.provides.js';
 
 // nơi chứa các hàm xử lý logic liên quan đến người dùng
 class authService {
@@ -56,6 +57,54 @@ class authService {
             return user;
         } catch (err) {
             throw err;
+        }
+    }
+
+    async forgotPassword(email) {
+        try {
+            const user = await UserModel.getUserByEmail(email);
+            if (!user) {
+                throw new Error('Email not found');
+            }
+
+            const resetPasswordToken = await bcrypt.genSalt(10);
+            const resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000); // Hết hạn sau 15 phút
+            const result = await UserModel.updateUserByEmail(email, {
+                resetPasswordToken,
+                resetPasswordExpires,
+            });          
+            if (!result) {
+                throw new Error('Error setting reset password token');
+            }
+
+            await emailProvider.sendEmail({
+                emailFrom: process.env.SMTP_USER,
+                emailTo: email,
+                emailSubject: 'Reset Password',
+                emailText: `Your reset password token is: ${resetPasswordToken}`,
+            });
+            return true;
+
+        } catch (error) {
+            throw new Error('Error sending email: ' + error.message);
+        }
+    }
+
+    async resetPassword(email, passwordResetToken, newPassword) {
+        try {
+            const user = await UserModel.checkResetPasswordToken(email, passwordResetToken);
+            if (!user) {
+                throw new Error('Invalid token or token expired');
+            }
+
+            const password = await hashProvider.generateHash(newPassword);
+            const updateStatus = await UserModel.resetPassword(password, email);
+            if (!updateStatus) {
+                throw new Error('Error updating password');
+            }
+            return true;
+        } catch (error) {
+            throw new Error('Error resetting password: ' + error.message);
         }
     }
 }

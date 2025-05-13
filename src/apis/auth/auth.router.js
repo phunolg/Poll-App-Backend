@@ -14,5 +14,7 @@ router.get('/get-me',
     VerifyMiddleware.checkAuth,
     authController.getMe
 )
+router.post('/forgot-password', AuthController.forgotPassword);
+router.post('/reset-password', AuthController.resetPassword);
 
 export default router;

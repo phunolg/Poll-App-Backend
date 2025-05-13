@@ -1,5 +1,4 @@
-H
-ashing
+Hashing
 - là quá trình chuyển đổi dữ liệu đầu vào thành một chuỗi ký tự cố định có độ dài nhất định, thường được sử dụng để bảo mật thông tin nhạy cảm như mật khẩu.
 - không thể đảo ngược lại dữ liệu ban đầu từ giá trị băm.
 - plain text -> hash text -> 1 chiều

@@ -28,6 +28,49 @@ class AuthController {
         }
     }
 
+    async forgotPassword(req, res, next) {
+        try {
+            const { email } = req.body;
+            const check = await authService.forgotPassword(email);
+            if (!check) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Email not found'
+                });
+            }
+            else {
+                return res.status(200).json({
+                    success: true,
+                    message: 'Email sent successfully'
+                });
+            }
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async resetPassword(req, res, next) {
+        try {
+            const { email, passwordResetToken, newPassword } = req.body;
+            const check = await authService.resetPassword(email, passwordResetToken, newPassword);
+
+            if (check) {
+                return res.status(200).json({
+                    success: true,
+                    message: 'Password reset successfully'
+                });
+            }
+            if (!check) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Password reset failed'
+                });
+            }   
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async getMe(req, res, next) {
         try {
 

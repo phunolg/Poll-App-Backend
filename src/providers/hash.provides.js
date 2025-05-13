@@ -1,16 +1,9 @@
-class hashProvider {
-    async generateHash(plainText){
-        const salt = await bcrypt.genSalt(10);
-        const hashString = await bcrypt.hash(plainText, salt);
+import bcrypt from 'bcrypt';
 
-        return hashString;
+const hashProvider = {
+    async generateHash(password) {
+        return await bcrypt.hash(password, 10);
     }
-
-    async compareHash(plainText, hashString) {
-        const isMatch = await bcrypt.compare(plainText, hashString);
-        return isMatch;
-    }
-}
-
+};
 
 export default hashProvider;

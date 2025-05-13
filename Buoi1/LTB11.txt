@@ -1,0 +1,71 @@
+upload file
+
+1. server 
+Client(file ảnh) [(req)->(binary)] server(lưu trong folder)
+=> làm nặng server, gây crack app
+
+2. db
+client [(req)->(file(encode))] server (encode 1 lần nữa cho nhẹ đi)
+            (base 64)
+
+    để lấy ảnh thì:
+
+    (decode)client<-(decode)server<-(decode)DB
+        binary          base 64
+=> nặng DB, chậm request
+
+3. cloud
+
+cách 1:
+Client (chọn file)
+ → yêu cầu Server tạo Presigned URL
+ → Server trả Presigned URL
+ → Client upload trực tiếp lên Cloud (AWS S3, GCP, Firebase...)
+ → Client gửi lại URL file cho Server
+ → Server lưu URL vào DB
+ → Trả kết quả cho Client    
+=> nhẹ server, nhẹ DB, nhanh request
+ 
+cách 2: 
+Client (chọn file)
+ → upload file lên Server
+ → Server nhận file, lưu file lên Cloud
+ → Cloud trả URL về cho Server
+ → Server lưu URL vào DB
+ → Trả URL cho Client
+=> nặng server, nhẹ DB, nhanh request
+
+cách server giao tiếp với db
+  Client → yêu cầu server tạo presigned URL
+Server → dùng access key/secret key tạo URL → trả cho client
+Client → upload file lên Cloud qua URL
+Client → gửi URL file cho server
+Server → lưu URL vào database
+
+
+
+
+4. upload leen cloud storoge = fe
+
+Client → Server: Gửi thông tin file để xin URL.
+Server → Client: Trả về URL.
+Client → Cloud (S3): Dùng URL upload file trực tiếp.
+Cloud → Client: Trả về kết quả upload.
+Client → Server: Gửi thông tin file (URL, tên, kích thước...) để lưu vào DB.
+    => ưu điểm: nhẹ server, nhẹ DB, nhanh request
+    => nhược điểm: lộ key, không bảo mật
+    => giải pháp: mã hóa key trước khi gửi lên cloud (để bảo mật)
+
+5. presigned URL 
+cloud : AWS
+cloud: (key/ credential) -> server (key/ credential) -> lưu vào env trong server -> url(đường link dẫn đến nơi chứa file) -> trả về client
+    => ưu điểm: nhẹ server, nhẹ DB, nhanh request
+    => nhược điểm: phụ thuộc vào cloud
+
+
+swagger
+- Là bộ công cụ giúp mô tả API một cách chuẩn hóa bằng định dạng YAML hoặc JSON.
+- Cho phép bạn tự động tạo tài liệu API, thử API trực tiếp trên trình duyệt, và tạo code client/server tự động.
+
+apidog
+- công cụ kết nối giữa swagger và postman, giúp bạn dễ dàng tạo tài liệu API và thử nghiệm API mà không cần phải viết mã thủ công.
