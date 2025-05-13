@@ -1,0 +1,53 @@
+ưu điểm
+- dễ sử dụng, linh hoạt
+- không cần type và ... cố đinh, dễ thay đổi linh hoạt
+- dễ phát triển linh hoạt
+- dễ mở rộng(scale): scale up(dọc), scale out(ngang)
+- tính năng: tăng tốc độ try vấn, aggreation Framework: giúp xử lý các dữ liệu phức tạp
+- một vài loại colection đặc biệt: 
++ time-to-live: dữ liệu tự dộng xóa sau một khoảng thời gian nhất định
++ capped collection: giới hạn kích thước của collection, dữ liệu cũ sẽ bị xóa khi đạt đến giới hạn kích thước
+- file storage: lưu trữ file lớn, hình ảnh, video, âm thanh, tài liệu, ...
+
+Document in MongoDB:
+- là trái tim của mongoDB, là đơn vị lưu trữ dữ liệu chính trong MongoDB
+- được sử dụng để lưu trữ dữ liệu dưới dạng JSON-like format (BSON)
+- document là 1 cặp key-value, key là tên trường (field) và value là giá trị của trường đó
+
+type sensitive and case insensitive
+- Type sensitive: các kiểu dữ liệu khác nhau sẽ được phân biệt và xử lý khác nhau. Ví dụ, trong MongoDB, một chuỗi "123" sẽ được coi là khác với số 123.
+- Case insensitive: các ký tự viết hoa và viết thường sẽ không được phân biệt. Ví dụ, trong MongoDB, "abc" và "ABC" sẽ được coi là giống nhau.
+
+collection in MongoDB
+- 1 collection là 1 nhóm các document liên quan với nhau, tương tự như bảng trong SQL
+- schema linh hoạt, không có có schema linh hoạt -> 2
+- trong 1 collection có thể chứa nhiều document khác nhau với các trường khác nhau
+- schema động có thể chứa document khác nhau trong cùng 1 collection
+- 
+
+index trong mongoDB
+- là cấu trúc dữ liệu giúp tăng tốc độ truy vấn dữ liệu trong MongoDB, giúp tìm kiếm nhanh hơn, nhưng read và write chậm hơn
+- index cũng chiếm 1 phần tài nguyên, nên cần cân nhắc khi sử dụng, số lượng <= 5
+- db.collection.createIndex({ field: 1 }) // tạo index cho trường field trong collection
+
+ví dụ về tốc độ truy vấn của có index và không có index
+- db.collection.find({ field: value }) // không có index, tốc độ truy vấn chậm hơn
+- db.collection.createIndex({ field: 1 }) // tạo index cho trường field trong collection
+- db.collection.find({ field: value }) // có index, tốc độ truy vấn nhanh hơn
+- db.collection.dropIndex({ field: 1 }) // xóa index cho trường field trong collection
+_id là 1 loại index mặc định trong mongoDB, không thể xóa được, không thể thay đổi được
+- objectId có 3 phần: (lợi ích: không bị xung đột)
++ 4 bytes đầu: timestamp, 5 bytes tiếp theo: machine id, 3 bytes cuối: process id
+
+Atomic Operations (all or nothing)
+- là các thao tác mà không thể bị chia nhỏ hoặc bị ngắt quãng trong quá trình thực hiện, đảm bảo tính toàn vẹn của dữ liệu
+- ví dụ: Thêm phần tử vào mảng với $push
+db.orders.updateOne(
+  { _id: 1 }, // Điều kiện tìm kiếm
+  { $push: { items: { productId: 101, quantity: 2 } } } // Thêm phần tử vào mảng `items`
+);
+Giải thích:
+Nếu thao tác thành công, phần tử mới sẽ được thêm vào mảng items.
+Nếu thất bại, mảng items sẽ không bị thay đổi.
+
+* note: db.collection.updateMany() không có Atomic Operations, vì nó có thể thay đổi nhiều document cùng lúc

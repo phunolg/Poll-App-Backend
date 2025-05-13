@@ -1,0 +1,11 @@
+Forget reset password
+- flow forgot - reset password:
++ API 1: /forgot- password
+    {email} 
+        => not found
+        => tạo token (gửi trở lại) => trả về cho user qua email
+
++ API 2: /reset - password
+    {email, token, new Password}
+        => token sai hoặc hết hạn or email sai (lưu token trong db)
+        => update password trong db

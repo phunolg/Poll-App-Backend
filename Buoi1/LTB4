@@ -39,7 +39,8 @@ Khi sử dụng các công cụ như Babel hoặc Webpack để biên dịch mã
 - import toàn bộ module, chỉ import khi cần dùng
 
 2. Middleware
-- Middleware là các hàm trung gian trong ứng dụng web hoặc API, được sử dụng để xử lý các yêu cầu (request) và phản hồi (response) trước khi chúng đến các route handler hoặc được gửi lại cho client. Middleware thường được sử dụng trong các framework như Express.js.
+- Middleware là các hàm trung gian trong ứng dụng web hoặc API, được sử dụng để xử lý các yêu cầu (request) và phản hồi (response) trước khi chúng đến
+các route handler hoặc được gửi lại cho client. Middleware thường được sử dụng trong các framework như Express.js.
 - Chức năng của Middleware:
 + Xử lý yêu cầu (Request) và phản hồi (Response):
 Middleware có thể can thiệp vào yêu cầu trước khi nó đến route handler hoặc xử lý phản hồi trước khi gửi lại cho client.

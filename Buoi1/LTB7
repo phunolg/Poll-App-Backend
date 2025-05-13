@@ -1,0 +1,45 @@
+Mongoose
+
+- ODB: ánh xạ các đối tượng trong ứng dụng với các tài liệu trong cơ sở dữ liệu NoSQL.(giống với ORM trong SQL) 
+- có sự ràng buộc và phải định nghĩa trước schemal, lúc thêm vô thì phải đủ yêu cầu của schemal 
++ ví dụ
+// Định nghĩa schema cho User
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true }, // Trường name là chuỗi và bắt buộc
+    email: { type: String, required: true, unique: true }, // Trường email là chuỗi, bắt buộc và phải duy nhất
+    age: { type: Number, required: false }, // Trường age là số và không bắt buộc
+    createdAt: { type: Date, default: Date.now } // Trường createdAt có giá trị mặc định là ngày hiện tại
+});
+
+- mongodb thì tạo tự do không cần định nghĩa trước
+
+- thiết kế schema cho một cuộc thăm dò ý kiến (poll) sử dụng Mongoose:
+
+const poll = new mongoose.Schema({
+    title: { type: String, required: true},
+    description: { type: String, required: true},
+    createBy: { type: moongoose.Schemal.Types.ObjectID, ref: "User", required: true}
+    option: [
+        {
+            text: { type: String, required: true },
+            vote: { type: Number, default: 0 }
+        }
+    ],
+    participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+
+
+table: sql
++ users: id, email, password( vừa là người tạo, vừa là người dùng )
++ poll: id, title, author, createdAt
++ options: id, name, pollId
++ vote: id, optionId, userId
+
++ user-poll: 1-n
++ polls-options: 1-n
++ user-options( có vote là bằng trung gian ): n-n
+
+
+collection: noSQL
++ user:_Id, email, password,...
++ polls: _Id, title, author(user_Id), options[_Id, name], createdAT
++ votes:_Id, UserId, polls_Id, Selectedoptions[__] (chứa thông tin về option mình đã code)

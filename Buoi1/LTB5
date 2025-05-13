@@ -1,0 +1,75 @@
+1. SQL, NOSQL
+1.1. structure query lauguege: ngôn ngữ trong 
+- RDBMS(relational management system)
+- cấu trúc: row, colum, table, database
+- quan hệ: 1-1, 1-n, n-n
+- vd RDBMS: mysql, sql server,...
+2. NOSQL
+- document DB: MongoDB
+- key value stone: reads
+- whide colums: consadra,...
+- graph database next: Neo, tighgraph
+- không có ngôn ngữ cố định
+
+3. mongoDB: 
+- cấu trúc: document, field, collection, database
+- Mô hình triển khai:
++ Standalone
++ Raplication
++ Sharding: chia nhỏ dữ liệu ra nhiều node
++ storage engine: WiredTiger (Mặc định), MMAPv1 (Cũ, không còn được hỗ trợ từ MongoDB 4.0), In-Memory Storage Engine, Encrypted Storage Engine
+
+- không nên sử dụng 1 collection để lưu tất cả dữ liệu:
+1. Khó quản lý dữ liệu
+2. Hiệu suất truy vấn giảm
+3. Khó mở rộng
+4. Thiếu tính rõ ràng
+5. Không tận dụng được lợi thế của MongoDB
+6. tìm kiếm nhanh hơn
+
+- data type
++ number
++ string
++ array
++ null
++ date
++ object id
+
+
+$set
+$unset()
+$push
+$pull
+$
+
+
+4. so sánh SQL, mongoDB
+Tiêu chí	
+- SQL (Relational Database)	
+- NoSQL (Non-Relational Database)
+Default:	
+- Dữ liệu được lưu trữ trong các bảng (tables) với hàng (rows) và cột (columns).	
+- Dữ liệu được lưu trữ dưới dạng document, key-value, graph, hoặc column-family.
+Design For:	
+- Thiết kế cho dữ liệu có cấu trúc, với các mối quan hệ phức tạp.	
+- Thiết kế cho dữ liệu phi cấu trúc hoặc bán cấu trúc, linh hoạt hơn.
+Ngôn ngữ Query:
+- Sử dụng SQL (Structured Query Language) để truy vấn dữ liệu.	
+- Không có ngôn ngữ cố định, thường sử dụng API hoặc các ngôn ngữ truy vấn riêng (ví dụ: MongoDB Query Language).
+Type:
+- Quan hệ (Relational Database Management System - RDBMS).	
+- Phi quan hệ (Non-Relational Database).
+Selection	
+- Phù hợp với các ứng dụng yêu cầu tính nhất quán cao và dữ liệu có cấu trúc rõ ràng.	
+- Phù hợp với các ứng dụng yêu cầu hiệu suất cao, dữ liệu linh hoạt, hoặc dữ liệu phi cấu trúc.
+Khả năng mở rộng	
+- Mở rộng dọc (Vertical Scaling): Nâng cấp phần cứng máy chủ, ít được dùng
+- Mở rộng ngang (Horizontal Scaling): Thêm nhiều máy chủ để xử lý dữ liệu, khó quản lý 
+Ví dụ	MySQL, PostgreSQL, SQL Server, Oracle.	MongoDB, Redis, Cassandra, Neo4j.
+Cấu trúc:
+- Bảng,...
+- document, key value
+tính toàn vẹn dữ liệu:
+- ACID
+- BASE
+
