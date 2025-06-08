@@ -43,9 +43,7 @@ Client → gửi URL file cho server
 Server → lưu URL vào database
 
 
-
-
-4. upload leen cloud storoge = fe
+4. upload len cloud storoge = fe
 
 Client → Server: Gửi thông tin file để xin URL.
 Server → Client: Trả về URL.

@@ -1,0 +1,60 @@
+devOps
+- DevOps là một phương pháp (methodology) kết hợp giữa Development (phát triển phần mềm) và Operations (vận hành hệ thống). Mục tiêu của DevOps là tăng tốc độ phát triển, kiểm thử, triển khai phần mềm và tự động hóa quy trình làm việc giữa các nhóm phát triển và vận hành.
+
+- Một số đặc điểm chính của DevOps:
+    + Tự động hóa: Tự động hóa build, test, deploy, monitoring.
+    + Liên tục: Triển khai liên tục (CI/CD), kiểm thử liên tục.
+    + Cộng tác: Tăng cường giao tiếp giữa các nhóm phát triển và vận hành.
+    + Giám sát: Theo dõi hệ thống, phản hồi nhanh khi có sự cố.
+    
+- Các công cụ DevOps phổ biến:
+    + Git, GitHub, GitLab (quản lý mã nguồn)
+    + Jenkins, GitHub Actions, GitLab CI/CD (tự động hóa CI/CD)
+    + Docker, Kubernetes (container hóa và quản lý container)
+    + Ansible, Terraform (tự động hóa hạ tầng)
+    + Prometheus, Grafana (giám sát và hiển thị dữ liệu)
+    + DevOps giúp rút ngắn chu kỳ phát triển phần mềm, tăng chất lượng sản phẩm và giảm thiểu lỗi khi triển khai.
+
+- cách để deploy
+1. tạo 1 máy ảo rồi public lên đó chạy, khởi tạo trên máy chủ(máy vật lý,...)
+
+2. build 1 container (không phụ thuộc vào môi trường máy chủ)rồi đưa lên máy chủ rồi dùng tool để chạy container đó
+3. github, gitlab: trả cho nó theo dõi khi có commit mới thì nó xem thử có conflic không, không có thì nó sẽ tự động đưa lên server chạy
+
+deploy
+    - Deploy (triển khai) là quá trình đưa ứng dụng, website hoặc dịch vụ từ môi trường phát triển (development) lên môi trường thực tế (production) để người dùng có thể sử dụng. Quá trình này bao gồm việc cài đặt, cấu hình, và chạy ứng dụng trên máy chủ hoặc nền tảng đích.
+
+deploy có 2 dạng: từ be và bd
+- deploy database là quá trình cập nhật, cài đặt hoặc nâng cấp database trên môi trường production hoặc các môi trường khác. Việc này thường bao gồm:
+    + Tạo mới hoặc cập nhật cấu trúc bảng (tables), view, stored procedure, trigger, v.v.
+    + Nhập dữ liệu mẫu hoặc dữ liệu cần thiết.
+    + Chạy các script migration để thay đổi cấu trúc dữ liệu theo phiên bản mới của ứng dụng.
+
+Máy chủ vật lý 
+- hướng dẫn chi tiết: https://dashboard.ngrok.com/get-started/setup/windows
+
+Máy ảo: dùng máy EC2, hệ điều hành aws, chọn nền tảng 64bit
+- tạo khóa để kết nối tới EC2
+
+sau khi kết nối(tham khảo: digitalOcean)
+- sudo: để update
+- sudo yum update(nhưng mà ưu tiên cài ubuntu)
+
+- npm -v
+- yum install git/dnf install git
+
+sau khi ... thì có 2 cách: upload cả container lên server hoặc cài github lên server 
+- 
+- git config -- global user.name "Phuong"
+- git config -- global user.gmail "phuong0968804740@gmail.com"
+- git init
+- git fetch
+- git checkout main
+- ls(ktra)
+- cd ...
+- npm i
+
+
+sau khi built thì chạy trực tiếp trên node
+
+

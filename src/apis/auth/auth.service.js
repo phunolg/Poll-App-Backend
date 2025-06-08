@@ -11,7 +11,7 @@ import hashProvider from '../../providers/hash.provides.js';
 
 // nơi chứa các hàm xử lý logic liên quan đến người dùng
 class authService {
-    async register(email, password) {
+    async register(email, password, role = 'User') {
         try {
             const existingUser = await UserModel.getAllUsers();
             if( existingUser.some((user) => user.email === email)) {
@@ -21,16 +21,15 @@ class authService {
             // tạo hash 
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // lưu eamil và hash vào db
-            const newUser = await UserModel.createUser( email, hashedPassword );
+            // lưu email, hash password và role vào db
+            const newUser = await UserModel.createUser(email, hashedPassword, role);
 
             return newUser;
         }   catch (error) {
             throw new Error('Error registering user: ' + error.message);
         }   
-    }
-
-    async login(email, password) {
+    }    async login(email, password) {
+        console.log("Login attempt for email:", email);
         const user = await UserModel.getUserByEmail(email, password);
         if (!user) {
             throw new Error('Invalid email');
@@ -42,8 +41,9 @@ class authService {
             throw new Error('Invalid password');
         }
 
+        console.log("User authenticated successfully, generating token for user ID:", user._id);
         const token = await authProvides.encodeToken(user);
-        // console.log('Generated token:', token);
+        console.log('Generated token:', token.substring(0, 20) + "...");
         return token;
     }
 

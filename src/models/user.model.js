@@ -4,9 +4,9 @@ import bcrypt from 'bcrypt';
 
 class UserModel {
     // Create a user
-    async createUser(email, password) {
-        const db = getDB(); // Lấy kết nối đến cơ sở dữ liệu
-        return await db.collection("users").insertOne({ email, password }); // Truy vấn tất cả người dùng
+    async createUser(email, password, role = 'User') {
+        const db = getDB(); 
+        return await db.collection("users").insertOne({ email, password, role }); // Truy vấn tất cả người dùng
     }
 
     // Get all users
@@ -93,6 +93,13 @@ class UserModel {
         } catch (error) {
             throw error;
         }
+    }
+
+    // Lấy vai trò người dùng
+    async getUserRoleById(id) {
+        const db = getDB();
+        const user = await db.collection("users").findOne({ _id: new ObjectId(id) }, { projection: { role: 1 } });
+        return user?.role || 'User';
     }
 }
 

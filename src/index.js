@@ -11,6 +11,9 @@ import templateEngineConfig from "./config/templateEngine.config.js";
 import hashProvider from "./providers/hash.provides.js";
 import 'dotenv/config';
 import { connectDB } from './config/db.config.js';
+import pollRouter from './routes/poll.router.js';
+import voteRouter from './routes/vote.route.js';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,9 +26,13 @@ const startApp = async () => {
     app.use(express.json());
     app.use("/abc", express.static(path.join(__dirname, 'public')));
     app.use("/", router);
+    app.use("/polls", pollRouter);
+    app.use("/votes", voteRouter);
 
     templateEngineConfig(app);
     app.use(errorHandler);
+
+    
 
     // Xử lý Single File
     app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
@@ -37,16 +44,17 @@ const startApp = async () => {
         }
         res.send(file);
     });
-
+    
     app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`);
+        console.log(`Server running on http://localhost:${port}`);
     });
+
+    
 };
 
 const runApp = async () => {
     try {
         await connectDB();
-        console.log("Connected to MongoDB");
         startApp();
     } catch (err) {
         console.error("Error connecting to MongoDB:", err);
