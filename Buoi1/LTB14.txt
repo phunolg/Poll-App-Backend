@@ -1,0 +1,16 @@
+docker hub
+cách bước để push image lên docker hub
+0. đặt tên cho repo trùng với tên của container 
+1. tag lại image: docker tag s_group_backend-app phuong1335/s_group_backend:latest
+2. Login vào Docker Hub: username: Phuong133.., pass: Phuong..  ikn???
+3. Push image lên Docker Hub: docker push phuong1335/s_group_backend:latest
+
+
+- build image từ Dockerfile để kiểm tra ứng dụng
+- tạo EC2: chỉ kết nối SSH để chạy được post 3000 thì phải setting posts để có thể truy cập từ bên ngoài
+- 1 chuyên nhận xử lý thông tin từ 1 cổng, 1 chuyên gửi thông tin đến cổng khác => tách ra 2 cổng
+0. EC2 instance cài đặt Docker
+1. Đăng nhập Docker Hub từ EC2
+2. Pull image từ Docker Hub
+3. Chạy container từ image
+4. Tự động hoá bằng Docker Compose

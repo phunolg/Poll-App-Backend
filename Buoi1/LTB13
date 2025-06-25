@@ -1,0 +1,27 @@
+DOCKER
+
+- là 1 mã nguồn mở
+- cung cấp khả năng đóng gói và chạy nhiều chương trình
+- sự cô lập và đồng thời trên 1 máy chủ nhất định
+- trọng lượng nhẹ và chứa mọi thứ cần thiết
+- (bao gồm nhiều máy chủ cô lập với nhau)
+- ecr là nơi lưu trữ docker
+
+
+- image
+- container
+- image: có cái module nào thì đóng gói và đưa vào image
+- container: máy để run, trong 1 máy có nhiều container khác nhau(như 1 cái máy và cô lập với các container khác) 
+- volumne: map dữ liệu của máy mình với máy docker
+
+- 1 máy có thể chạy nhiều container, 1 container có thể chạy đc nhiều image
+
+
+-flow
++ build iamage, đấy image lên lưu trữ -> docker hub, ecr
++ dô SSH tải image về run
++ set cổng để vào
++ user
+
+- docker-compose 
+- docker file 

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  app:
+    image: phuong1335/sgroup_app
+    container_name: sgroup_app
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+    command: node src/index.js

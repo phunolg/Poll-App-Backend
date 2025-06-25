@@ -15,6 +15,10 @@ devOps
     + Prometheus, Grafana (giám sát và hiển thị dữ liệu)
     + DevOps giúp rút ngắn chu kỳ phát triển phần mềm, tăng chất lượng sản phẩm và giảm thiểu lỗi khi triển khai.
 
+2 hạ tầng chính trong DevOps:
+- Hạ tầng vật lý: Là các máy chủ vật lý, máy chủ ảo (VM) hoặc máy chủ đám mây (cloud server) mà ứng dụng được triển khai và chạy trên đó. Ví dụ: AWS EC2, Google Cloud Compute Engine, Azure Virtual Machines.
+- Hạ tầng ảo hóa: Là các công nghệ cho phép tạo ra các máy chủ ảo (VM) hoặc container để chạy ứng dụng. Ví dụ: Docker, Kubernetes, VMware.
+
 - cách để deploy
 1. tạo 1 máy ảo rồi public lên đó chạy, khởi tạo trên máy chủ(máy vật lý,...)
 
@@ -42,6 +46,9 @@ sau khi kết nối(tham khảo: digitalOcean)
 
 - npm -v
 - yum install git/dnf install git
+- cài đặt cơ sở dữ liệu, 
+
+
 
 sau khi ... thì có 2 cách: upload cả container lên server hoặc cài github lên server 
 - 

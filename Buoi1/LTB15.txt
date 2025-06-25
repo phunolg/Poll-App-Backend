@@ -1,0 +1,41 @@
+ECR:
+CECD:
+| Thành phần                      | Ý nghĩa                                                        |
+| **Continuous Engineering (CE)** | Tích hợp quy trình phát triển liên tục (Design → Build → Test) |
+| **Continuous Delivery (CD)**    | Đóng gói, kiểm thử và chuẩn bị release liên tục                |
+| **Continuous Deployment (CD)**  | Tự động triển khai lên production sau khi vượt qua kiểm thử    |
+ 
+ chú ý: không được tag sai URL hoặc chưa tạo repo tương ứng trên AWS ECR.
+
+QUY TRÌNH PUSH IMAGE LÊN AWS ECR
+1.1. Tải và cài AWS CLI
+1.2. Cấu hình AWS CLI: aws configure
+    AWS Access Key ID     → từ IAM
+    AWS Secret Access Key → từ IAM
+    Default region name   → ap-southeast-1 (Singapore) hoặc ap-southeast-2 (Sydney)
+    Default output format → json
+
+PHẦN 2: TẠO IAM USER VÀ ACCESS KEY
+2.1. Truy cập AWS Console → IAM → Users
+    Tạo user hoặc chọn user sẵn có
+    Gán quyền AmazonEC2ContainerRegistryFullAccess
+    Truy cập tab Security credentials
+    Nhấn Create access key
+    Copy:    Access Key ID,    Secret Access Key (chỉ hiện 1 lần)
+
+PHẦN 3: TẠO REPOSITORY TRÊN AWS ECR
+3.1. Dùng Console:
+    Truy cập: https://console.aws.amazon.com/ecr
+    Nhấn Create repository
+    Nhập tên: s-group-backend (hoặc bất kỳ)
+    Region: ap-southeast-1 hoặc ap-southeast-2
+    Để mặc định: Private, Mutable, AES-256
+    Nhấn Create
+
+PHẦN 4: BUILD, TAG & PUSH IMAGE TỪ LOCAL
+4.1. Build Docker image: docker build -t s-group-backend .
+4.2. Đăng nhập vào ECR: aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin <ACCOUNT_ID>.dkr.ecr.ap-southeast-1.amazonaws.com
+4.3. Tag lại image đúng định dạng: docker tag s-group-backend:latest 905418342382.dkr.ecr.ap-southeast-1.amazonaws.com/s-group-backend:latest
+4.4. Push image lên ECR: docker push 905418342382.dkr.ecr.ap-southeast-1.amazonaws.com/s-group-backend:latest
+
+
