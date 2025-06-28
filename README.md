@@ -159,20 +159,3 @@ EMAIL_PASS=your_email_password
 
 ---
 
-## 🤝 Contribution
-
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📌 Changelog
-
-### v1.0.0
-- Basic poll and vote management
-- Auth system (JWT-based)
-- RESTful API structure
-- Docker support
