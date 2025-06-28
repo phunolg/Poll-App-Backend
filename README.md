@@ -176,4 +176,3 @@ EMAIL_PASS=your_email_password
 - Auth system (JWT-based)
 - RESTful API structure
 - Docker support
-- CI/CD pipeline integration
